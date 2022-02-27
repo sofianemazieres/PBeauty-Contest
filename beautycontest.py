@@ -4,7 +4,8 @@ from PyQt5.QtWidgets import QApplication
 import numpy as np
 
 class beautycontest:
-    #Constructeur
+    """ Constructor.
+    """
     def __init__(self):
         self.nb_players = 4
         player1 = player()
@@ -15,7 +16,9 @@ class beautycontest:
         self.nb_rounds = 2
         self.current_round = 0
         self.p = 1
-        
+
+    """ Calculate the mean of all selected values.
+    """
     def mean(self):
         total_value = 0
         nb_values = 0
@@ -23,41 +26,24 @@ class beautycontest:
         for player in self.players:
             total_value += player.selected_value
             nb_values += 1
-        #print("Moyenne : ", total_value/nb_values)
         return total_value/nb_values
     
-    def winner(self, p):
-        j=1
-        while j <= len(self.values):
-            print("J",j," chose :", self.values[j-1])
-            j += 1
-        
-        mean_value_p = self.mean() * p
-        print("Mean is :", mean_value_p)
-        gap = abs(self.values[0] - mean_value_p)
-        #print("gap :", gap)
-        winner_nb = 0
-        i=0
-        while i < len(self.values):
-            if (gap > abs(self.values[i] - mean_value_p)) & (i!=0):
-                gap = abs(self.values[i] - mean_value_p)
-                winner_nb = i
-                
-            i+=1
-        return winner_nb
-    
-    
-        
-      
+
 class player:
+    """ Constructor.
+    """
     def __init__(self):
         self.name = self.randomname()
         self.score = 0
         self.selected_value = -1
-        
+
+    """ Change the name of the current player.
+    """
     def changename(self, newname):
         self.name = newname
 
+    """ Create (by default) a random name for the current player.
+    """
     def randomname(self):
         random_string = ""
         for _ in range(10):
