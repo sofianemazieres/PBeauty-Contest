@@ -3,6 +3,7 @@
 from tkinter import Text, Tk, Frame, Button, Label, YES, END, DISABLED, NORMAL, Menu, Image
 
 from PIL import ImageTk
+from tabulate import tabulate
 
 from beautycontest import beautycontest as bc
 from beautycontest import player
@@ -238,6 +239,17 @@ class Window():
     """
     def mean(self):
         contest_mean = self.contest.mean()
+
+        head = ["Player", "Guess"]
+        table = [[self.contest.players[0].name, self.contest.players[0].selected_value],
+                 [self.contest.players[1].name, self.contest.players[1].selected_value],
+                 [self.contest.players[2].name, self.contest.players[2].selected_value],
+                 [self.contest.players[3].name, self.contest.players[3].selected_value]]
+        self.console["state"] = NORMAL
+        self.console.insert(END, tabulate(table, headers=head, tablefmt="grid") + '\n')
+        self.console.insert(END, "Mean : " + str(contest_mean) + '\n')
+        self.console["state"] = DISABLED
+
         tempplayer = self.whowin(contest_mean * self.contest.p)
         self.winner(tempplayer)
 
